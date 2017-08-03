@@ -20,6 +20,11 @@ h1 {
     justify-content: space-around;
     line-height:30px;
 }
+
+.face {
+  /*display: none;*/
+}
+
 .card {
     display: flex;
     background: blue;
