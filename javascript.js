@@ -38,18 +38,29 @@ function showFace() {
         face[0].style.display = 'none';
     }
     flippedCards.push(this);
-    console.log(flippedCards);
-    console.log(flippedCards[0]);
+    // console.log(flippedCards);
+    // console.log(flippedCards[0]);
     if (flippedCards.length > 2) {
       let face1 = flippedCards[0].getElementsByClassName("face");
       let face2 = flippedCards[1].getElementsByClassName("face");
+      console.log(face1);
+      console.log(face2);
+      if (face1[0].textContent != face2[0].textContent) {
       face1[0].style.display = "none";
       face2[0].style.display = "none";
       flippedCards.shift();
       flippedCards.shift();
-
-
     }
+
+    else {
+    face1[0].matched = "yes";
+    face2[0].matched = "yes";
+    console.log(face1 + " matched!");
+    console.log(face2 + " matched!");
+    flippedCards.shift();
+    flippedCards.shift();
+    }
+  }
   }
 
   for (let i = 0; i < allCards.length; i++) {
