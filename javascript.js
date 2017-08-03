@@ -26,7 +26,9 @@ for (let i = 0; i < cards.length; i++) {
 
 let allCards = document.querySelectorAll('.card');
 let flippedCards = [];
-let earliestFlippedCard = flippedCards[0];
+
+
+
 function showFace() {
     let face = this.getElementsByClassName("face");
     // console.log("this",this);
@@ -38,9 +40,21 @@ function showFace() {
         face[0].style.display = 'none';
     }
     flippedCards.push(this);
-    // console.log(flippedCards);
-    // console.log(flippedCards[0]);
-    if (flippedCards.length > 2) {
+
+    if (flippedCards.length > 1) {
+      for (let i = 0; i < allCards.length; i++) {
+        allCards[i].removeEventListener('click', showFace, false);
+
+        }
+      setTimeout(matchCards,2000);
+      for (let i = 0; i < allCards.length; i++) {
+        allCards[i].addEventListener('click', showFace, false);
+
+        }
+    }
+
+    function matchCards(){
+
       let face1 = flippedCards[0].getElementsByClassName("face");
       let face2 = flippedCards[1].getElementsByClassName("face");
       console.log(face1);
@@ -61,7 +75,7 @@ function showFace() {
     flippedCards.shift();
     }
   }
-  }
+}
 
   for (let i = 0; i < allCards.length; i++) {
     allCards[i].addEventListener('click', showFace, false);
