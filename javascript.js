@@ -25,7 +25,8 @@ for (let i = 0; i < cards.length; i++) {
 // www.w3schools.com/howto/howto_js_toggle_hide_show.asp
 
 let allCards = document.querySelectorAll('.card');
-
+let flippedCards = [];
+let earliestFlippedCard = flippedCards[0];
 function showFace() {
     let face = this.getElementsByClassName("face");
     // console.log("this",this);
@@ -36,8 +37,22 @@ function showFace() {
     } else {
         face[0].style.display = 'none';
     }
+    flippedCards.push(this);
+    console.log(flippedCards);
+    console.log(flippedCards[0]);
+    if (flippedCards.length > 2) {
+      let face1 = flippedCards[0].getElementsByClassName("face");
+      let face2 = flippedCards[1].getElementsByClassName("face");
+      face1[0].style.display = "none";
+      face2[0].style.display = "none";
+      flippedCards.shift();
+      flippedCards.shift();
+
+
+    }
   }
 
   for (let i = 0; i < allCards.length; i++) {
     allCards[i].addEventListener('click', showFace, false);
-  }
+
+    }
