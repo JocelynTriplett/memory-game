@@ -11,8 +11,9 @@ function shuffle(array) {
         array[j] = temp;
     }
 }
-
 shuffle(cards);
+
+// Assign card value to face
 
 for (let i = 0; i < cards.length; i++) {
   let cardFaceValue = document.createTextNode(cards[i]);
@@ -25,34 +26,37 @@ for (let i = 0; i < cards.length; i++) {
 // www.w3schools.com/howto/howto_js_toggle_hide_show.asp
 
 let allCards = document.querySelectorAll('.card');
-let flippedCards = [];
+let flippedCards = document.querySelectorAll(display = 'flex');
+console.log(flippedCards);
 
 
 
-function showFace() {
+function flipCard (){
     let face = this.getElementsByClassName("face");
-    // console.log("this",this);
-    // console.log("face[0]",face[0]);
-    // console.log("face[0].style.display",face[0].style.display);
+
     if (face[0].style.display === 'none') {
         face[0].style.display = 'flex';
-    } else {
+    }
+    else {
         face[0].style.display = 'none';
     }
     flippedCards.push(this);
-
-    if (flippedCards.length > 1) {
-      for (let i = 0; i < allCards.length; i++) {
-        allCards[i].removeEventListener('click', showFace, false);
-
-        }
-      setTimeout(matchCards,2000);
-      for (let i = 0; i < allCards.length; i++) {
-        allCards[i].addEventListener('click', showFace, false);
-
-        }
+    return flippedCards;
+    //console.log(flippedCards);
     }
-
+console.log(flippedCards);
+//     if (flippedCards.length > 1) {
+//       for (let i = 0; i < allCards.length; i++) {
+//         allCards[i].removeEventListener('click', showFace, false);
+//
+//         }
+//       setTimeout(matchCards,2000);
+//       for (let i = 0; i < allCards.length; i++) {
+//         allCards[i].addEventListener('click', showFace, false);
+//
+//         }
+//     }
+//
     function matchCards(){
 
       let face1 = flippedCards[0].getElementsByClassName("face");
@@ -75,9 +79,16 @@ function showFace() {
     flippedCards.shift();
     }
   }
-}
 
-  for (let i = 0; i < allCards.length; i++) {
-    allCards[i].addEventListener('click', showFace, false);
+  function playGame() {
 
+    for (let i = 0; i < allCards.length; i++) {
+      if (flippedCards.length < 2){
+      allCards[i].addEventListener('click', flipCard, false);
+      }
+      else {
+        matchCards();
+      }
     }
+}
+playGame();

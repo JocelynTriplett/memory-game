@@ -39,5 +39,5 @@ h1 {
     /* vw explained here: https://tutorialzine.com/2015/05/simplify-your-stylesheets-with-the-magical-css-viewport-units */
     height: 15vw;
     width: 15vw;
-    border-radius: 25px;
+    border-radius: 10px;
 }
