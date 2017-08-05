@@ -25,9 +25,11 @@ for (let i = 0; i < cards.length; i++) {
 // www.w3schools.com/howto/howto_js_toggle_hide_show.asp
 
 let allCards = document.querySelectorAll('.card');
-let flippedCards = [];
+let flippedCards = document.querySelectorAll('.face' && 'style.display[flex]');
 
+console.log(flippedCards);
 
+var test = document.querySelectorAll('input[value][type="checkbox"]:not([value=""])');
 
 function showFace() {
     let face = this.getElementsByClassName("face");
