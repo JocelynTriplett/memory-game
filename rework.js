@@ -9,7 +9,7 @@
 
 //document.getElementById("startClock").addEventListener("click", startTimer);
 
-
+var lives = ["O","O","O","O","O","O","O","O","O","O"];
 
 
 
@@ -57,7 +57,6 @@ for (var i = 0; i < flippedFaces.length; i++) {
   flippedCards.push(flippedFaces[i].parentElement);
 }
 
-//<div id ="stop_timer" onclick="clearInterval(timerVar)">Stop time</div>
 hiddenCards[i].addEventListener('click', setTimerVar, false);
 
 function setTimerVar () {
@@ -69,9 +68,11 @@ function countTimer() {
    ++totalSeconds;
    var hour = Math.floor(totalSeconds /3600);
    var minute = Math.floor((totalSeconds - hour*3600)/60);
+   var formattedMinutes = ("0" + minute).slice(-2);
    var seconds = totalSeconds - (hour*3600 + minute*60);
+   var formattedSeconds = ("0" + seconds).slice(-2);
 
-   document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+   document.getElementById("timer").innerHTML = "Time: " + formattedMinutes + ":" + formattedSeconds;
 }
 // console.log("hiddenCards: " + hiddenCards);
 // console.log("flippedFaces: " + flippedFaces);
