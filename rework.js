@@ -9,12 +9,17 @@
 
 //document.getElementById("startClock").addEventListener("click", startTimer);
 
-let beginningLives = ["O","O","O"];
+let beginningLives = ["assets/heart.png", "assets/heart.png","assets/heart.png"];
 var lives = [];
+var hearts = "";
 for (var i = 0; i < beginningLives.length; i++) {
   lives.push(beginningLives[i]);
 }
-document.getElementById("lives").innerHTML = lives.join(' ');
+for (var i = 0; i < lives.length; i++) {
+  hearts += `<img src="${lives[i]}" />       `
+}
+document.getElementById("lives").innerHTML = hearts;
+
 
 // Card deck values:
 let cards = ["A","B","C","D","E","F","G","H","I","A","B","C","D","E","F","G","H","I"];
@@ -85,15 +90,24 @@ function countTimer() {
 
 function pauseBeforeFlip (x,y){
   console.log(x[0]);
+  hearts = "";
   x[0].style.display = "none";
   y[0].style.display = "none";
   flippedCards.shift();
   flippedCards.shift();
   lives.shift();
-  document.getElementById("lives").innerHTML = lives.join(' ');
+  for (var i = 0; i < lives.length; i++) {
+
+    hearts += `<img src="${lives[i]}" />       `
+  }
+  document.getElementById("lives").innerHTML = hearts;
   if (lives.length == 0) {
     var modal = document.getElementById('myModal');
+    var span = document.getElementsByClassName("close")[0];
     modal.style.display = "block";
+    span.onclick = function() {
+    modal.style.display = "none";
+  }
   }
   else {
   for (let i = 0; i < hiddenFaces.length; i++) {

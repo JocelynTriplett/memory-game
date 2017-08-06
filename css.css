@@ -22,6 +22,16 @@ h1 {
   margin-right: 30px;
 }
 
+#lives {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+#lives img {
+  height: 25px;
+}
+
 #timer {
   position: relative;
   left: -30px;
