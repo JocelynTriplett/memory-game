@@ -3,6 +3,17 @@
 
 // These load on page refresh:
 
+// Code for timer:
+// https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
+
+
+//document.getElementById("startClock").addEventListener("click", startTimer);
+
+
+
+
+
+
 // Card deck values:
 let cards = ["A","B","C","D","E","F","G","H","I","A","B","C","D","E","F","G","H","I"];
 
@@ -46,6 +57,22 @@ for (var i = 0; i < flippedFaces.length; i++) {
   flippedCards.push(flippedFaces[i].parentElement);
 }
 
+//<div id ="stop_timer" onclick="clearInterval(timerVar)">Stop time</div>
+hiddenCards[i].addEventListener('click', setTimerVar, false);
+
+function setTimerVar () {
+  var timerVar = setInterval(countTimer, 1000);
+}
+
+var totalSeconds = 0;
+function countTimer() {
+   ++totalSeconds;
+   var hour = Math.floor(totalSeconds /3600);
+   var minute = Math.floor((totalSeconds - hour*3600)/60);
+   var seconds = totalSeconds - (hour*3600 + minute*60);
+
+   document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+}
 // console.log("hiddenCards: " + hiddenCards);
 // console.log("flippedFaces: " + flippedFaces);
 // console.log("hiddenFaces: " + hiddenFaces);
@@ -59,6 +86,9 @@ function pauseBeforeFlip (x,y){
   y[0].style.display = "none";
   flippedCards.shift();
   flippedCards.shift();
+  for (let i = 0; i < hiddenFaces.length; i++) {
+    hiddenCards[i].addEventListener('click', playGame, false);
+    }
 }
 
 function playGame (){
@@ -73,6 +103,10 @@ function playGame (){
 
         // console.log(flippedCards);
         if (flippedCards.length > 1) {
+          for (let i = 0; i < allCards.length; i++) {
+                  allCards[i].removeEventListener('click', playGame, false);
+
+                  }
 
 
               let face1 = flippedCards[0].getElementsByClassName("face");
@@ -81,7 +115,7 @@ function playGame (){
               console.log(face2);
               if (face1[0].textContent != face2[0].textContent) {
 
-                setTimeout(function() { pauseBeforeFlip(face1,face2); },5000);
+                setTimeout(function() { pauseBeforeFlip(face1,face2); },3000);
 
                 //setTimeout(function() { startTimer(parm1); }, startInterval);
 
@@ -95,6 +129,9 @@ function playGame (){
             console.log(face2 + " matched!");
             flippedCards.shift();
             flippedCards.shift();
+            for (let i = 0; i < hiddenFaces.length; i++) {
+              hiddenCards[i].addEventListener('click', playGame, false);
+              }
 
             }
           }
@@ -104,11 +141,25 @@ function playGame (){
 
 function clickCard () {
 for (let i = 0; i < hiddenFaces.length; i++) {
+
   hiddenCards[i].addEventListener('click', playGame, false);
   }
 }
 
+
 clickCard ();
+
+
+// function countTimer() {
+//   var timerVar = setInterval(countTimer, 1000);
+//   var totalSeconds = 0;
+//   ++totalSeconds;
+//    var hour = Math.floor(totalSeconds /3600);
+//    var minute = Math.floor((totalSeconds - hour*3600)/60);
+//    var seconds = totalSeconds - (hour*3600 + minute*60);
+//
+//    document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+// }
 
 // console.log(flippedCards);
 
