@@ -51,27 +51,64 @@ for (var i = 0; i < flippedFaces.length; i++) {
 // console.log("hiddenFaces: " + hiddenFaces);
 // console.log("hiddenCards: " + hiddenFaces.length);
 
-
 //console.log(flippedCards);
+
+function pauseBeforeFlip (x,y){
+  console.log(x[0]);
+  x[0].style.display = "none";
+  y[0].style.display = "none";
+  flippedCards.shift();
+  flippedCards.shift();
+}
 
 function playGame (){
   if (flippedCards.length < 2) {
     let face = this.getElementsByClassName("face");
-
         if (face[0].style.display === 'none') {
             face[0].style.display = 'flex';
         }
-
         flippedCards.push(this);
-        // console.log(flippedCards);
-  }
+
 }
 
+        // console.log(flippedCards);
+        if (flippedCards.length > 1) {
 
+
+              let face1 = flippedCards[0].getElementsByClassName("face");
+              let face2 = flippedCards[1].getElementsByClassName("face");
+              console.log(face1);
+              console.log(face2);
+              if (face1[0].textContent != face2[0].textContent) {
+
+                setTimeout(function() { pauseBeforeFlip(face1,face2); },5000);
+
+                //setTimeout(function() { startTimer(parm1); }, startInterval);
+
+
+            }
+
+            else {
+            face1[0].matched = "yes";
+            face2[0].matched = "yes";
+            console.log(face1 + " matched!");
+            console.log(face2 + " matched!");
+            flippedCards.shift();
+            flippedCards.shift();
+
+            }
+          }
+
+  }
+
+
+function clickCard () {
 for (let i = 0; i < hiddenFaces.length; i++) {
   hiddenCards[i].addEventListener('click', playGame, false);
   }
+}
 
+clickCard ();
 
 // console.log(flippedCards);
 
