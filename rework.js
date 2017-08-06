@@ -9,10 +9,12 @@
 
 //document.getElementById("startClock").addEventListener("click", startTimer);
 
-var lives = ["O","O","O","O","O","O","O","O","O","O"];
-
-
-
+let beginningLives = ["O","O","O","O","O","O","O"];
+var lives = [];
+for (var i = 0; i < beginningLives.length; i++) {
+  lives.push(beginningLives[i]);
+}
+document.getElementById("lives").innerHTML = lives.join(' ');
 
 // Card deck values:
 let cards = ["A","B","C","D","E","F","G","H","I","A","B","C","D","E","F","G","H","I"];
@@ -87,6 +89,9 @@ function pauseBeforeFlip (x,y){
   y[0].style.display = "none";
   flippedCards.shift();
   flippedCards.shift();
+  lives.shift();
+  document.getElementById("lives").innerHTML = lives.join(' ');
+
   for (let i = 0; i < hiddenFaces.length; i++) {
     hiddenCards[i].addEventListener('click', playGame, false);
     }
