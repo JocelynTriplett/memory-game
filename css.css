@@ -45,8 +45,9 @@ h1 {
     line-height:30px;
 }
 
-.face {
-  /*display: none;*/
+.face img{
+  height: 100%;
+  width: 100%;
 }
 
 .card {
@@ -64,6 +65,7 @@ h1 {
     height: 15vw;
     width: 15vw;
     border-radius: 25px;
+    overflow: hidden;
 }
 
 /* The Modal (background) */
