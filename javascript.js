@@ -20,7 +20,6 @@ for (var i = 0; i < lives.length; i++) {
 }
 document.getElementById("lives").innerHTML = hearts;
 
-
 // Card deck values:
 let cards =
 ["tile1.png","tile1.png",
@@ -35,12 +34,12 @@ let cards =
 
 // Shuffle cards:
 function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
+  for (let i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
 }
 
 shuffle(cards);
@@ -84,14 +83,14 @@ function setTimerVar () {
 
 var totalSeconds = 0;
 function countTimer() {
-   ++totalSeconds;
-   var hour = Math.floor(totalSeconds /3600);
-   var minute = Math.floor((totalSeconds - hour*3600)/60);
-   var formattedMinutes = ("0" + minute).slice(-2);
-   var seconds = totalSeconds - (hour*3600 + minute*60);
-   var formattedSeconds = ("0" + seconds).slice(-2);
+  ++totalSeconds;
+  var hour = Math.floor(totalSeconds /3600);
+  var minute = Math.floor((totalSeconds - hour*3600)/60);
+  var formattedMinutes = ("0" + minute).slice(-2);
+  var seconds = totalSeconds - (hour*3600 + minute*60);
+  var formattedSeconds = ("0" + seconds).slice(-2);
 
-   document.getElementById("timer").innerHTML = "Time: " + formattedMinutes + ":" + formattedSeconds;
+  document.getElementById("timer").innerHTML = "Time: " + formattedMinutes + ":" + formattedSeconds;
 }
 // console.log("hiddenCards: " + hiddenCards);
 // console.log("flippedFaces: " + flippedFaces);
@@ -118,185 +117,83 @@ function pauseBeforeFlip (x,y){
     var span = document.getElementsByClassName("close")[0];
     modal.style.display = "block";
     span.onclick = function() {
-    modal.style.display = "none";
-  }
+      modal.style.display = "none";
+    }
   }
 
   else {
-  for (let i = 0; i < hiddenFaces.length; i++) {
-    hiddenCards[i].addEventListener('click', playGame, false);
+    for (let i = 0; i < hiddenFaces.length; i++) {
+      hiddenCards[i].addEventListener('click', playGame, false);
     }
-    }
+  }
 }
 
 function playGame (){
   if (flippedCards.length < 2) {
     let face = this.getElementsByClassName("face");
-        if (face[0].style.display === 'none') {
-            face[0].style.display = 'flex';
-        }
-        flippedCards.push(this);
-
-}
-
-        // console.log(flippedCards);
-        if (flippedCards.length > 1) {
-          for (let i = 0; i < allCards.length; i++) {
-                  allCards[i].removeEventListener('click', playGame, false);
-
-                  }
-
-
-              let face1 = flippedCards[0].getElementsByClassName("face");
-              let face2 = flippedCards[1].getElementsByClassName("face");
-              console.log(face1);
-              console.log(face2);
-              if (face1[0].textContent != face2[0].textContent) {
-
-                setTimeout(function() { pauseBeforeFlip(face1,face2); },2000);
-
-                //setTimeout(function() { startTimer(parm1); }, startInterval);
-
-
-            }
-
-            else {
-            face1[0].matched = "yes";
-            face2[0].matched = "yes";
-            console.log(face1 + " matched!");
-            console.log(face2 + " matched!");
-            flippedCards.shift();
-            flippedCards.shift();
-            console.log(hiddenFaces.length);
-            console.log(hiddenCards.length);
-            console.log(flippedCards.length);
-            console.log(flippedFaces.length);
-            let matched = document.querySelectorAll('[matched="yes"]')
-            console.log(matched);
-            if (hiddenFaces.length == 0) {
-              var modal = document.getElementById('win');
-              var span = document.getElementsByClassName("close")[0];
-              modal.style.display = "block";
-              span.onclick = function() {
-              modal.style.display = "none";
-            }
-            }
-            else {
-            for (let i = 0; i < hiddenFaces.length; i++) {
-              hiddenCards[i].addEventListener('click', playGame, false);
-              }
-              }
-
-            }
-          }
+    if (face[0].style.display === 'none') {
+      face[0].style.display = 'flex';
+    }
+    flippedCards.push(this);
 
   }
 
+  // console.log(flippedCards);
+  if (flippedCards.length > 1) {
+    for (let i = 0; i < allCards.length; i++) {
+      allCards[i].removeEventListener('click', playGame, false);
+
+    }
+
+
+    let face1 = flippedCards[0].getElementsByClassName("face");
+    let face2 = flippedCards[1].getElementsByClassName("face");
+    console.log(face1);
+    console.log(face2);
+    if (face1[0].textContent != face2[0].textContent) {
+
+      setTimeout(function() { pauseBeforeFlip(face1,face2); },2000);
+
+    }
+
+    else {
+      face1[0].matched = "yes";
+      face2[0].matched = "yes";
+      console.log(face1 + " matched!");
+      console.log(face2 + " matched!");
+      flippedCards.shift();
+      flippedCards.shift();
+      console.log(hiddenFaces.length);
+      console.log(hiddenCards.length);
+      console.log(flippedCards.length);
+      console.log(flippedFaces.length);
+      let matched = document.querySelectorAll('[matched="yes"]')
+      console.log(matched);
+      if (hiddenFaces.length == 0) {
+        var modal = document.getElementById('win');
+        var span = document.getElementsByClassName("close")[0];
+        modal.style.display = "block";
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+      }
+      else {
+        for (let i = 0; i < hiddenFaces.length; i++) {
+          hiddenCards[i].addEventListener('click', playGame, false);
+        }
+      }
+
+    }
+  }
+
+}
+
 
 function clickCard () {
-for (let i = 0; i < hiddenFaces.length; i++) {
-
-  hiddenCards[i].addEventListener('click', playGame, false);
+  for (let i = 0; i < hiddenFaces.length; i++) {
+    hiddenCards[i].addEventListener('click', playGame, false);
   }
 }
 
 
 clickCard ();
-
-// Get the modal
-//var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-//var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-//var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-//btn.onclick = function() {
-//     modal.style.display = "block";
-// }
-//
-// // When the user clicks on <span> (x), close the modal
-// span.onclick = function() {
-//     modal.style.display = "none";
-// }
-//
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//     if (event.target == modal) {
-//         modal.style.display = "none";
-//     }
-// }
-
-// function countTimer() {
-//   var timerVar = setInterval(countTimer, 1000);
-//   var totalSeconds = 0;
-//   ++totalSeconds;
-//    var hour = Math.floor(totalSeconds /3600);
-//    var minute = Math.floor((totalSeconds - hour*3600)/60);
-//    var seconds = totalSeconds - (hour*3600 + minute*60);
-//
-//    document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
-// }
-
-// console.log(flippedCards);
-
-//   for (let i = 0; i < hiddenCards.length; i++) {
-//   hiddenCards[i].addEventListener('onClick', flipCard, false);
-// }
-
-
-//
-// function showFace() {
-//     let face = this.getElementsByClassName("face");
-//     // console.log("this",this);
-//     // console.log("face[0]",face[0]);
-//     // console.log("face[0].style.display",face[0].style.display);
-//     if (face[0].style.display === 'none') {
-//         face[0].style.display = 'flex';
-//     } else {
-//         face[0].style.display = 'none';
-//     }
-//     flippedCards.push(this);
-//
-//     if (flippedCards.length > 1) {
-//       for (let i = 0; i < allCards.length; i++) {
-//         allCards[i].removeEventListener('click', showFace, false);
-//
-//         }
-//       setTimeout(matchCards,2000);
-//       for (let i = 0; i < allCards.length; i++) {
-//         allCards[i].addEventListener('click', showFace, false);
-//
-//         }
-//     }
-//
-//     function matchCards(){
-//
-//       let face1 = flippedCards[0].getElementsByClassName("face");
-//       let face2 = flippedCards[1].getElementsByClassName("face");
-//       console.log(face1);
-//       console.log(face2);
-//       if (face1[0].textContent != face2[0].textContent) {
-//       face1[0].style.display = "none";
-//       face2[0].style.display = "none";
-//       flippedCards.shift();
-//       flippedCards.shift();
-//     }
-//
-//     else {
-//     face1[0].matched = "yes";
-//     face2[0].matched = "yes";
-//     console.log(face1 + " matched!");
-//     console.log(face2 + " matched!");
-//     flippedCards.shift();
-//     flippedCards.shift();
-//     }
-//   }
-// }
-//
-  // for (let i = 0; i < allCards.length; i++) {
-  //   allCards[i].addEventListener('click', showFace, false);
-  //
-  //   }
