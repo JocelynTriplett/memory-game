@@ -1,3 +1,10 @@
+let startButton = document.getElementById('startButton');
+
+startButton.addEventListener('click', startGame, false);
+
+function startGame() {
+  document.getElementById("welcome").style.visibility = "hidden"; //hide start screen
+}
 // Shuffle cards function:
 // stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 
