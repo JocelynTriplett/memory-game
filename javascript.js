@@ -2,17 +2,24 @@ let startButton = document.getElementById('startButton');
 
 startButton.addEventListener('click', startGame, false);
 
-function startGame() {
-  document.getElementById("welcome").style.visibility = "hidden"; //hide start screen
-  let header = document.getElementById("header");
+function createGameBoard(){
   let gameBoard = document.getElementById("gameBoard");
-  let row = document.createElement("row");
-  let card = document.createElement("card");
-  let cardText = document.createTextNode("this is a card!");
+  for (let i = 0; i < 3; i++) {
+    let row = document.createElement("div");
+    row.classList.add('row');
+    gameBoard.appendChild(row);
+    for (let j = 0; j < 5; j++) {
+      let card = document.createElement("div");
+      card.classList.add('card');
+      let cardText = document.createTextNode("this is a card!");
+      row.appendChild(card);
+      card.appendChild(cardText);
+      console.log("created element")
+    }
+  }
+}
 
-  gameBoard.appendChild(row);
-  row.appendChild(card);
-  card.appendChild(cardText);
-
-
+function startGame() {
+  document.getElementById("welcome").style.visibility = "hidden";
+  createGameBoard();
 }
