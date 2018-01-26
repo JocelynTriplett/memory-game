@@ -29,9 +29,9 @@ function deal(array){
     let faceImage = document.createElement("img");
     faceImage.setAttribute("src","assets/"+cards[i]);
     faces[i].appendChild(faceImage);
+    faces[i].setAttribute("image",cards[i]);
   }
 }
-
 
 function createGameBoard(){
   let gameBoard = document.getElementById("gameBoard");
@@ -43,17 +43,35 @@ function createGameBoard(){
       let card = document.createElement("div");
       card.classList.add('card');let face = document.createElement("div");
       face.classList.add('face');
-      let cardText = document.createTextNode("this is a card!");
+      face.style.display="none";
       row.appendChild(card);
       card.appendChild(face);
-      card.appendChild(cardText);
-      console.log("created element")
     }
   }
   deal(cards);
 }
 
+
+
+
+var myFunction = function() {
+  var attribute = this.getAttribute("data-myattribute");
+  alert(attribute);
+};
+
+
+
+function flipCard() {
+  cardFace = this.querySelector(".face");
+  cardFace.style.display = "flex";
+}
+
 function startGame() {
   document.getElementById("welcome").style.visibility = "hidden";
   createGameBoard();
+  let hiddenCards = document.querySelectorAll('[style="display: none;"]');
+  console.log(hiddenCards);
+  for (var i = 0; i < hiddenCards.length; i++) {
+    hiddenCards[i].parentElement.addEventListener('click', flipCard, false);
+  }
 }

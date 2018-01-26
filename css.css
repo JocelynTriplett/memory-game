@@ -36,7 +36,7 @@ h1 {
 
 .card {
     display: flex;
-    background: blue;
+    background: black;
     margin: 5px;
     color: white;
     font-weight: bold;
@@ -50,4 +50,9 @@ h1 {
     width: 15vw;
     border-radius: 10px;
     overflow: hidden;
+}
+
+.face img{
+  height: 100%;
+  width: 100%;
 }
