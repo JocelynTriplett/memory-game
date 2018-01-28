@@ -59,11 +59,16 @@ var myFunction = function() {
   alert(attribute);
 };
 
-
-
 function flipCard() {
   cardFace = this.querySelector(".face");
+  let flippedCards = document.querySelectorAll('[style="display: flex;"]');
+  console.log(flippedCards.length);
+  if (flippedCards.length < 2){
   cardFace.style.display = "flex";
+   }
+   else {
+     console.log("more than 2 cards already flipped!")
+   }
 }
 
 function startGame() {
