@@ -82,7 +82,7 @@ function flipCard() {
    }
   else if (flippedCards.length == 1){
    cardFace.style.display = "flex";
-   checkMatch();
+   setTimeout(checkMatch, 2000);
     }
    else {
      console.log("There are already two cards flipped!");
