@@ -44,30 +44,31 @@ function createGameBoard(){
       card.classList.add('card');let face = document.createElement("div");
       face.classList.add('face');
       face.style.display="none";
+      face.setAttribute("matched","no");
       row.appendChild(card);
       card.appendChild(face);
+
     }
   }
   deal(cards);
 }
 
-
-
-
-var myFunction = function() {
-  var attribute = this.getAttribute("data-myattribute");
-  alert(attribute);
-};
-
+function checkMatch(){
+  let flippedCards = document.querySelectorAll('[style="display: flex;"]' && '[matched="no"]');
+}
 function flipCard() {
   cardFace = this.querySelector(".face");
-  let flippedCards = document.querySelectorAll('[style="display: flex;"]');
+  let flippedCards = document.querySelectorAll('[style="display: flex;"][matched="no"]');
   console.log(flippedCards.length);
-  if (flippedCards.length < 2){
+  if (flippedCards.length < 1){ // only 2 flipped cards at a time
   cardFace.style.display = "flex";
    }
+  else if (flippedCards.length == 1){
+   cardFace.style.display = "flex";
+   checkMatch();
+    }
    else {
-     console.log("more than 2 cards already flipped!")
+     console.log("There are already two cards flipped!");
    }
 }
 
@@ -75,7 +76,6 @@ function startGame() {
   document.getElementById("welcome").style.visibility = "hidden";
   createGameBoard();
   let hiddenCards = document.querySelectorAll('[style="display: none;"]');
-  console.log(hiddenCards);
   for (var i = 0; i < hiddenCards.length; i++) {
     hiddenCards[i].parentElement.addEventListener('click', flipCard, false);
   }
