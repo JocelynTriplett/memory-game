@@ -61,8 +61,8 @@ function checkMatch(){
   console.log("image2:"+image2);
   if (flippedCards[0].getAttribute("image") === flippedCards[1].getAttribute("image")){
     console.log("they match!");
-    flippedCards[0].matched = "yes";
-    flippedCards[1].matched = "yes";
+    flippedCards[0].setAttribute("matched", "yes");
+    flippedCards[1].setAttribute("matched", "yes");
   }
   else {
     console.log("they don't match.");
@@ -75,8 +75,7 @@ function checkMatch(){
 
 function flipCard() {
   cardFace = this.querySelector(".face");
-  flippedCards = [];
-  flippedCards = document.querySelectorAll('[style="display: flex;"][matched="no"]');
+  let flippedCards = document.querySelectorAll('[style="display: flex;"][matched="no"]');
   console.log(flippedCards.length);
   if (flippedCards.length < 1){ // only 2 flipped cards at a time
   cardFace.style.display = "flex";
