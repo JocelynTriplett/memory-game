@@ -44,7 +44,6 @@ function createGameBoard(){
       card.classList.add('card');
       let face = document.createElement("div");
       face.classList.add('face');
-      face.setAttribute("matched","no");
       let back = document.createElement("div");
       back.classList.add('back');
       row.appendChild(container);
@@ -66,8 +65,8 @@ function checkMatch(){
   console.log("image2:"+image2);
   if (image1 === image2){
     console.log("they match!");
-    flippedCards[0].setAttribute("matched", "yes");
-    flippedCards[1].setAttribute("matched", "yes");
+    flippedCards[0].classList.add('matched');
+    flippedCards[1].classList.add('matched');
   }
   else {
     console.log("they don't match.");
@@ -78,7 +77,7 @@ function checkMatch(){
 }
 
 function flipCard() {
-  let flippedCards = document.querySelectorAll('.flipped');
+  let flippedCards = document.querySelectorAll('.flipped:not(.matched)');
   console.log(flippedCards.length);
 
   // only 2 flipped cards at a time
