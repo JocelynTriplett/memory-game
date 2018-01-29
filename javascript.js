@@ -57,7 +57,7 @@ function createGameBoard(){
 }
 
 function checkMatch(){
-  let flippedCards = document.querySelectorAll('.flipped');
+  let flippedCards = document.querySelectorAll('.flipped:not(.matched)');
   console.log(flippedCards);
   image1 = flippedCards[0].children[0].attributes[2].value;
   image2 = flippedCards[1].children[0].attributes[2].value;
