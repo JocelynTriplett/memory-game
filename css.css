@@ -34,7 +34,18 @@ h1 {
     line-height:30px;
 }
 
-.card {
+.container {
+    height: 15vw;
+    width: 15vw;
+    margin: 5px;
+    position: relative;
+    -webkit-perspective: 800px;
+    -moz-perspective: 800px;
+    -o-perspective: 800px;
+    perspective: 800px;
+}
+
+/* .card {
     display: flex;
     background: black;
     margin: 5px;
@@ -45,14 +56,53 @@ h1 {
     justify-content: center;
     align-items: center;
     flex: 1 0 auto;
-    /* vw explained here: https://tutorialzine.com/2015/05/simplify-your-stylesheets-with-the-magical-css-viewport-units */
     height: 15vw;
     width: 15vw;
     border-radius: 10px;
     overflow: hidden;
-}
+} */
 
-.face img{
-  height: 100%;
-  width: 100%;
+.card {
+display: flex;
+
+  height: 15vw;
+  width: 15vw;
+
+    position: absolute;
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+    transition: transform 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 50% 50%;
+}
+.card div {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.card .back {
+  background: red;
+  border-radius: 10px;
+}
+.card .face {
+  border-radius: 10px;
+  background-size: contain;
+    -webkit-transform: rotateY( 180deg );
+    -moz-transform: rotateY( 180deg );
+    -o-transform: rotateY( 180deg );
+    transform: rotateY( 180deg );
+}
+.card.flipped {
+    -webkit-transform: rotateY( 180deg );
+    -moz-transform: rotateY( 180deg );
+    -o-transform: rotateY( 180deg );
+    transform: rotateY( 180deg );
 }
