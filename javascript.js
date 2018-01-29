@@ -58,20 +58,21 @@ function createGameBoard(){
 }
 
 function checkMatch(){
-  let flippedCards = document.querySelectorAll('[style="display: flex;"][matched="no"]');
-  image1 = flippedCards[0].getAttribute("image");
-  image2 = flippedCards[1].getAttribute("image");
+  let flippedCards = document.querySelectorAll('.flipped');
+  console.log(flippedCards);
+  image1 = flippedCards[0].children[0].attributes[2].value;
+  image2 = flippedCards[1].children[0].attributes[2].value;
   console.log("image1:"+image1);
   console.log("image2:"+image2);
-  if (flippedCards[0].getAttribute("image") === flippedCards[1].getAttribute("image")){
+  if (image1 === image2){
     console.log("they match!");
     flippedCards[0].setAttribute("matched", "yes");
     flippedCards[1].setAttribute("matched", "yes");
   }
   else {
     console.log("they don't match.");
-    flippedCards[0].style.display = "none";
-    flippedCards[1].style.display = "none";
+    flippedCards[0].classList.remove('flipped');
+    flippedCards[1].classList.remove('flipped');
   }
   takeTurn();
 }
@@ -91,7 +92,7 @@ function flipCard() {
   else {
     console.log("There are already two cards flipped!");
    }
-   
+
   takeTurn();
 }
 
