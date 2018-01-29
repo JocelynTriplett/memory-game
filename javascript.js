@@ -26,9 +26,7 @@ shuffle(cards);
 function deal(array){
   let faces = document.querySelectorAll( ".face" );
   for (let i = 0; i < array.length; i++) {
-    let faceImage = document.createElement("img");
-    faceImage.setAttribute("src","assets/"+cards[i]);
-    faces[i].appendChild(faceImage);
+    faces[i].style.backgroundImage="url(assets/"+cards[i];
     faces[i].setAttribute("image",cards[i]);
   }
 }
@@ -40,13 +38,19 @@ function createGameBoard(){
     row.classList.add('row');
     gameBoard.appendChild(row);
     for (let j = 0; j < 6; j++) {
+      let container = document.createElement("div");
+      container.classList.add('container');
       let card = document.createElement("div");
-      card.classList.add('card');let face = document.createElement("div");
+      card.classList.add('card');
+      let face = document.createElement("div");
       face.classList.add('face');
-      face.style.display="none";
       face.setAttribute("matched","no");
-      row.appendChild(card);
+      let back = document.createElement("div");
+      back.classList.add('back');
+      row.appendChild(container);
+      container.appendChild(card);
       card.appendChild(face);
+      card.appendChild(back);
 
     }
   }
@@ -72,27 +76,29 @@ function checkMatch(){
   takeTurn();
 }
 
-
 function flipCard() {
-  cardFace = this.querySelector(".face");
-  let flippedCards = document.querySelectorAll('[style="display: flex;"][matched="no"]');
+  let flippedCards = document.querySelectorAll('.flipped');
   console.log(flippedCards.length);
-  if (flippedCards.length < 1){ // only 2 flipped cards at a time
-  cardFace.style.display = "flex";
-   }
+
+  // only 2 flipped cards at a time
+  if (flippedCards.length < 1){
+    this.classList.add('flipped');
+  }
   else if (flippedCards.length == 1){
-   cardFace.style.display = "flex";
-   setTimeout(checkMatch, 2000);
-    }
-   else {
-     console.log("There are already two cards flipped!");
+    this.classList.add('flipped');
+    setTimeout(checkMatch, 2000);
+  }
+  else {
+    console.log("There are already two cards flipped!");
    }
+   
+  takeTurn();
 }
 
 function takeTurn(){
-  let hiddenCards = document.querySelectorAll('[style="display: none;"][matched="no"]');
+  let hiddenCards = document.querySelectorAll('.card:not(.flipped)');
   for (var i = 0; i < hiddenCards.length; i++) {
-    hiddenCards[i].parentElement.addEventListener('click', flipCard, false);
+    hiddenCards[i].addEventListener('click', flipCard, false);
   }
 }
 
@@ -100,5 +106,4 @@ function startGame() {
   document.getElementById("welcome").style.visibility = "hidden";
   createGameBoard();
   takeTurn();
-
 }
