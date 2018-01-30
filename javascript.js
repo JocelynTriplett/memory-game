@@ -37,7 +37,7 @@ function createGameBoard(){
   // Create Header Items
   let header = document.getElementById("header");
   let h1 = document.createElement("h1");
-  let title = document.createTextNode("Memory Game");
+  let title = document.createTextNode("Memory");
   let headerContainer = document.createElement("div");
   headerContainer.classList.add("header");
   let turns = document.createElement("div");
@@ -101,7 +101,6 @@ function checkMatch(){
 
 function flipCard() {
   let flippedCards = document.querySelectorAll('.flipped:not(.matched)');
-  console.log(flippedCards.length);
 
   // only 2 flipped cards at a time
   if (flippedCards.length < 1){
