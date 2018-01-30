@@ -1,26 +1,6 @@
-// Shuffle cards function:
-// stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+let startButton = document.getElementById('startButton');
+startButton.addEventListener('click', startGame, false);
 
-// These load on page refresh:
-
-// Code for timer:
-// https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
-
-
-//document.getElementById("startClock").addEventListener("click", startTimer);
-
-let beginningLives = ["heart.png", "heart.png","heart.png","heart.png","heart.png",];
-var lives = [];
-var hearts = "";
-for (var i = 0; i < beginningLives.length; i++) {
-  lives.push(beginningLives[i]);
-}
-for (var i = 0; i < lives.length; i++) {
-  hearts += `<img src="assets/${lives[i]}" />       `
-}
-document.getElementById("lives").innerHTML = hearts;
-
-// Card deck values:
 let cards =
 ["tile1.png","tile1.png",
 "tile2.png","tile2.png",
@@ -32,7 +12,6 @@ let cards =
 "tile8.png","tile8.png",
 "tile9.png","tile9.png"];
 
-// Shuffle cards:
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
@@ -44,156 +23,129 @@ function shuffle(array) {
 
 shuffle(cards);
 
-// Insert new card values:
-
-for (let i = 0; i < cards.length; i++) {
-  let cardFaceImage = document.createElement("img");
-  cardFaceImage.setAttribute("src","assets/"+cards[i]);
-  let cardFace = document.getElementById(i+"f");
-  let cardFaceText = document.createTextNode(cards[i]);
-  cardFace.appendChild(cardFaceImage);
-  cardFace.appendChild(cardFaceText);
-  cardFace.style.display="none";
+function deal(array){
+  let faces = document.querySelectorAll( ".face" );
+  for (let i = 0; i < array.length; i++) {
+    faces[i].style.backgroundImage="url(assets/"+cards[i];
+    faces[i].setAttribute("image",cards[i]);
+  }
 }
 
-// Show/hide function found here:
-// www.w3schools.com/howto/howto_js_toggle_hide_show.asp
+function createGameBoard(){
+  let gameBoard = document.getElementById("gameBoard");
 
-let allCards = document.querySelectorAll('.card');
+  // Create Header Items
+  let header = document.getElementById("header");
+  let h1 = document.createElement("h1");
+  let title = document.createTextNode("Memory");
+  let headerContainer = document.createElement("div");
+  headerContainer.classList.add("header");
+  let turns = document.createElement("div");
+  turns.classList.add("turns");
+  let timer = document.createElement("div");
+  timer.classList.add("timer");
+  timer.id = "timer";
 
-// QuerySelectorAll match on attribute value help here: https://stackoverflow.com/questions/10777684/how-to-use-queryselectorall-only-for-elements-that-have-a-specific-attribute-set
-var flippedFaces = document.querySelectorAll('.face' && '[style="display: flex;"]');
-var hiddenFaces = document.querySelectorAll('.face' && '[style= "display: none;"]');
+  header.appendChild(h1);
+  h1.appendChild(title);
+  header.appendChild(headerContainer);
+  headerContainer.appendChild(turns);
+  headerContainer.appendChild(timer);
 
-var hiddenCards = [];
-for (var i = 0; i < hiddenFaces.length; i++) {
-  hiddenCards.push(hiddenFaces[i].parentElement);
+  // Create Cards
+  for (let i = 0; i < 3; i++) {
+    let row = document.createElement("div");
+    row.classList.add('row');
+    gameBoard.appendChild(row);
+    for (let j = 0; j < 6; j++) {
+      let container = document.createElement("div");
+      container.classList.add('container');
+      let card = document.createElement("div");
+      card.classList.add('card');
+      let face = document.createElement("div");
+      face.classList.add('face');
+      let back = document.createElement("div");
+      back.classList.add('back');
+      row.appendChild(container);
+      container.appendChild(card);
+      card.appendChild(face);
+      card.appendChild(back);
+
+    }
+  }
+  deal(cards);
 }
 
-var flippedCards = [];
-for (var i = 0; i < flippedFaces.length; i++) {
-  flippedCards.push(flippedFaces[i].parentElement);
+function checkMatch(){
+  let flippedCards = document.querySelectorAll('.flipped:not(.matched)');
+  image1 = flippedCards[0].children[0].attributes[2].value;
+  image2 = flippedCards[1].children[0].attributes[2].value;
+  if (image1 === image2){
+    flippedCards[0].classList.add('matched');
+    flippedCards[1].classList.add('matched');
+    let matched = document.querySelectorAll('.matched');
+    if (matched.length == 18){
+      console.log("You won!");
+    }
+    else {
+    takeTurn();
+    }
+  }
+  else {
+    flippedCards[0].classList.remove('flipped');
+    flippedCards[1].classList.remove('flipped');
+    takeTurn();
+  }
+
 }
 
-hiddenCards[i].addEventListener('click', setTimerVar, false);
+function flipCard() {
+  let flippedCards = document.querySelectorAll('.flipped:not(.matched)');
+
+  // only 2 flipped cards at a time
+  if (flippedCards.length < 1){
+    this.classList.add('flipped');
+  }
+  else if (flippedCards.length == 1){
+    this.classList.add('flipped');
+    setTimeout(checkMatch, 2000);
+  }
+  else {
+    console.log("There are already two cards flipped!");
+   }
+
+  takeTurn();
+}
+
+function takeTurn(){
+  let hiddenCards = document.querySelectorAll('.card:not(.flipped)');
+  for (var i = 0; i < hiddenCards.length; i++) {
+    hiddenCards[i].addEventListener('click', flipCard, false);
+  }
+}
 
 function setTimerVar () {
   var timerVar = setInterval(countTimer, 1000);
 }
 
 var totalSeconds = 0;
+
 function countTimer() {
+
   ++totalSeconds;
   var hour = Math.floor(totalSeconds /3600);
   var minute = Math.floor((totalSeconds - hour*3600)/60);
   var formattedMinutes = ("0" + minute).slice(-2);
   var seconds = totalSeconds - (hour*3600 + minute*60);
   var formattedSeconds = ("0" + seconds).slice(-2);
+  timer = document.getElementById("timer");
 
-  document.getElementById("timer").innerHTML = "Time: " + formattedMinutes + ":" + formattedSeconds;
-}
-// console.log("hiddenCards: " + hiddenCards);
-// console.log("flippedFaces: " + flippedFaces);
-// console.log("hiddenFaces: " + hiddenFaces);
-// console.log("hiddenCards: " + hiddenFaces.length);
-
-//console.log(flippedCards);
-
-function pauseBeforeFlip (x,y){
-  console.log(x[0]);
-  hearts = "";
-  x[0].style.display = "none";
-  y[0].style.display = "none";
-  flippedCards.shift();
-  flippedCards.shift();
-  lives.shift();
-  for (var i = 0; i < lives.length; i++) {
-
-    hearts += `<img src="assets/${lives[i]}" />       `
-  }
-  document.getElementById("lives").innerHTML = hearts;
-  if (lives.length == 0) {
-    var modal = document.getElementById('lose');
-    var span = document.getElementsByClassName("close")[0];
-    modal.style.display = "block";
-    span.onclick = function() {
-      modal.style.display = "none";
-    }
-  }
-
-  else {
-    for (let i = 0; i < hiddenFaces.length; i++) {
-      hiddenCards[i].addEventListener('click', playGame, false);
-    }
-  }
+  timer.innerHTML = "Time: " + formattedMinutes + ":" + formattedSeconds;
 }
 
-function playGame (){
-  if (flippedCards.length < 2) {
-    let face = this.getElementsByClassName("face");
-    if (face[0].style.display === 'none') {
-      face[0].style.display = 'flex';
-    }
-    flippedCards.push(this);
-
-  }
-
-  // console.log(flippedCards);
-  if (flippedCards.length > 1) {
-    for (let i = 0; i < allCards.length; i++) {
-      allCards[i].removeEventListener('click', playGame, false);
-
-    }
-
-
-    let face1 = flippedCards[0].getElementsByClassName("face");
-    let face2 = flippedCards[1].getElementsByClassName("face");
-    console.log(face1);
-    console.log(face2);
-    if (face1[0].textContent != face2[0].textContent) {
-
-      setTimeout(function() { pauseBeforeFlip(face1,face2); },2000);
-
-    }
-
-    else {
-      face1[0].matched = "yes";
-      face2[0].matched = "yes";
-      console.log(face1 + " matched!");
-      console.log(face2 + " matched!");
-      flippedCards.shift();
-      flippedCards.shift();
-      console.log(hiddenFaces.length);
-      console.log(hiddenCards.length);
-      console.log(flippedCards.length);
-      console.log(flippedFaces.length);
-      let matched = document.querySelectorAll('[matched="yes"]')
-      console.log(matched);
-      if (hiddenFaces.length == 0) {
-        var modal = document.getElementById('win');
-        var span = document.getElementsByClassName("close")[0];
-        modal.style.display = "block";
-        span.onclick = function() {
-          modal.style.display = "none";
-        }
-      }
-      else {
-        for (let i = 0; i < hiddenFaces.length; i++) {
-          hiddenCards[i].addEventListener('click', playGame, false);
-        }
-      }
-
-    }
-  }
-
+function startGame() {
+  document.getElementById("welcome").style.visibility = "hidden";
+  createGameBoard();
+  setTimerVar();
+  takeTurn();
 }
-
-
-function clickCard () {
-  for (let i = 0; i < hiddenFaces.length; i++) {
-    hiddenCards[i].addEventListener('click', playGame, false);
-  }
-}
-
-
-clickCard ();
