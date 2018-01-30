@@ -33,6 +33,26 @@ function deal(array){
 
 function createGameBoard(){
   let gameBoard = document.getElementById("gameBoard");
+
+  // Create Header Items
+  let header = document.getElementById("header");
+  let h1 = document.createElement("h1");
+  let title = document.createTextNode("Memory Game");
+  let headerContainer = document.createElement("div");
+  headerContainer.classList.add("header");
+  let turns = document.createElement("div");
+  turns.classList.add("turns");
+  let timer = document.createElement("div");
+  timer.classList.add("timer");
+  timer.id = "timer";
+
+  header.appendChild(h1);
+  h1.appendChild(title);
+  header.appendChild(headerContainer);
+  headerContainer.appendChild(turns);
+  headerContainer.appendChild(timer);
+
+  // Create Cards
   for (let i = 0; i < 3; i++) {
     let row = document.createElement("div");
     row.classList.add('row');
@@ -67,13 +87,22 @@ function checkMatch(){
     console.log("they match!");
     flippedCards[0].classList.add('matched');
     flippedCards[1].classList.add('matched');
+    let matched = document.querySelectorAll('.matched');
+    console.log("matched:"+matched.length);
+    if (matched.length == 18){
+      console.log("You won!");
+    }
+    else {
+    takeTurn();
+    }
   }
   else {
     console.log("they don't match.");
     flippedCards[0].classList.remove('flipped');
     flippedCards[1].classList.remove('flipped');
+    takeTurn();
   }
-  takeTurn();
+
 }
 
 function flipCard() {
@@ -102,8 +131,28 @@ function takeTurn(){
   }
 }
 
+function setTimerVar () {
+  var timerVar = setInterval(countTimer, 1000);
+}
+
+var totalSeconds = 0;
+
+function countTimer() {
+
+  ++totalSeconds;
+  var hour = Math.floor(totalSeconds /3600);
+  var minute = Math.floor((totalSeconds - hour*3600)/60);
+  var formattedMinutes = ("0" + minute).slice(-2);
+  var seconds = totalSeconds - (hour*3600 + minute*60);
+  var formattedSeconds = ("0" + seconds).slice(-2);
+  timer = document.getElementById("timer");
+  
+  timer.innerHTML = "Time: " + formattedMinutes + ":" + formattedSeconds;
+}
+
 function startGame() {
   document.getElementById("welcome").style.visibility = "hidden";
   createGameBoard();
+  setTimerVar();
   takeTurn();
 }
