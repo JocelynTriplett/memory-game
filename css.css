@@ -57,16 +57,6 @@ button {
   margin-bottom: 20px;
 }
 
-/* .turns {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-.turns img {
-  height: 25px;
-} */
-
 .timer {
   position: relative;
   left: -30px;
