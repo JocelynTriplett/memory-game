@@ -26,7 +26,7 @@ h1 {
   align-items: center;
 }
 
-#startButton {
+button {
   margin-top: 40px;
   background-color: yellowgreen;
   font-family: 'Nunito', sans-serif;

@@ -33,6 +33,7 @@ function deal(array){
 
 function createGameBoard(){
   let gameBoard = document.getElementById("gameBoard");
+  // gameBoard.style.visibility = "visible";
 
   // Create Header Items
   let header = document.getElementById("header");
@@ -88,11 +89,12 @@ function youWin(){
   playAgainButtonText = document.createTextNode("Play Again?");
 
   playAgain.appendChild(youWonh1);
-  youWonh1.appendChild(youWon);
+  h1.appendChild(youWon);
   playAgain.appendChild(playAgainButton);
   playAgainButton.appendChild(playAgainButtonText);
 
-  playAgainButton.addEventListener('click', newGame, false);
+  playAgainButton.addEventListener('click', startGame, false);
+
 }
 
 function checkMatch(){
@@ -103,7 +105,7 @@ function checkMatch(){
     flippedCards[0].classList.add('matched');
     flippedCards[1].classList.add('matched');
     let matched = document.querySelectorAll('.matched');
-    if (matched.length == 2){
+    if (matched.length == 18){
       console.log("You won!");
       youWin();
     }
@@ -163,16 +165,9 @@ function countTimer() {
   timer.innerHTML = "Time: " + formattedMinutes + ":" + formattedSeconds;
 }
 
-function newGame(){
-  document.getElementById("playAgain").style.visibility = "hidden";
-  document.getElementById("gameBoard").style.visibility = "visible";
-  createGameBoard();
-  setTimerVar();
-  takeTurn();
-}
-
 function startGame() {
-  document.getElementById("welcome").style.visibility = "hidden";
+  // document.getElementById("welcome").style.visibility = "hidden";
+  // document.getElementById("playAgain").style.visibility = "hidden";
   createGameBoard();
   setTimerVar();
   takeTurn();
