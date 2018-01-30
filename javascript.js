@@ -43,14 +43,11 @@ function createGameBoard(){
   let turns = document.createElement("div");
   turns.classList.add("turns");
   let timer = document.createElement("div");
-  timer.classList.add("timer");
-  timer.id = "timer";
 
   header.appendChild(h1);
   h1.appendChild(title);
   header.appendChild(headerContainer);
   headerContainer.appendChild(turns);
-  headerContainer.appendChild(timer);
 
   // Create Cards
   for (let i = 0; i < 3; i++) {
@@ -78,8 +75,18 @@ function createGameBoard(){
 
 function youWin(){
   document.getElementById("gameBoard").style.visibility = "hidden";
+  let header = document.getElementById('header');
+  while (header.firstChild) {
+    header.removeChild(header.firstChild);
+  }
 
   playAgain = document.getElementById("playAgain");
+
+  while (playAgain.firstChild) {
+    playAgain.removeChild(playAgain.firstChild);
+  }
+
+  playAgain.style.display = "";
   playAgain.style.visibility = "visible";
   youWonh1 = document.createElement("h1");
   youWon = document.createTextNode("You Won!");
@@ -144,41 +151,25 @@ function takeTurn(){
   }
 }
 
-function setTimerVar () {
-  var timerVar = setInterval(countTimer, 1000);
-}
-
-var totalSeconds = 0;
-
-function countTimer() {
-
-  ++totalSeconds;
-  var hour = Math.floor(totalSeconds /3600);
-  var minute = Math.floor((totalSeconds - hour*3600)/60);
-  var formattedMinutes = ("0" + minute).slice(-2);
-  var seconds = totalSeconds - (hour*3600 + minute*60);
-  var formattedSeconds = ("0" + seconds).slice(-2);
-  timer = document.getElementById("timer");
-
-  timer.innerHTML = "Time: " + formattedMinutes + ":" + formattedSeconds;
-}
-
 function newGame(){
   document.getElementById("playAgain").style.visibility = "hidden";
   let gameBoard = document.getElementById("gameBoard");
   gameBoard.style.visibility = "visible";
-
   while (gameBoard.firstChild) {
     gameBoard.removeChild(gameBoard.firstChild);
   }
+  let header = document.getElementById('header');
+  while (header.firstChild) {
+    header.removeChild(header.firstChild);
+  }
   createGameBoard();
-  setTimerVar();
   takeTurn();
 }
 
 function startGame() {
-  document.getElementById("welcome").style.visibility = "hidden";
+  let welcome = document.getElementById("welcome");
+  welcome.style.visibility = "hidden";
+  welcome.style.display = "none";
   createGameBoard();
-  setTimerVar();
   takeTurn();
 }
