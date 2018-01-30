@@ -165,7 +165,12 @@ function countTimer() {
 
 function newGame(){
   document.getElementById("playAgain").style.visibility = "hidden";
-  document.getElementById("gameBoard").style.visibility = "visible";
+  let gameBoard = document.getElementById("gameBoard");
+  gameBoard.style.visibility = "visible";
+
+  while (gameBoard.firstChild) {
+    gameBoard.removeChild(gameBoard.firstChild);
+  }
   createGameBoard();
   setTimerVar();
   takeTurn();
