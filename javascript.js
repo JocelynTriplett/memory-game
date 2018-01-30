@@ -1,6 +1,7 @@
 let startButton = document.getElementById('startButton');
 startButton.addEventListener('click', startGame, false);
 
+// images for cards go here (2 of each).
 let cards =
 ["tile1.png","tile1.png",
 "tile2.png","tile2.png",
@@ -22,6 +23,9 @@ function shuffle(array) {
 }
 
 shuffle(cards);
+
+// Shuffle cards function:
+// stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 
 function deal(array){
   let faces = document.querySelectorAll( ".face" );
@@ -67,7 +71,6 @@ function createGameBoard(){
       container.appendChild(card);
       card.appendChild(face);
       card.appendChild(back);
-
     }
   }
   deal(cards);
@@ -75,17 +78,19 @@ function createGameBoard(){
 
 function youWin(){
   document.getElementById("gameBoard").style.visibility = "hidden";
+
+  // remove header items
   let header = document.getElementById('header');
   while (header.firstChild) {
     header.removeChild(header.firstChild);
   }
-
+  // remove previous playAgain children
   playAgain = document.getElementById("playAgain");
-
   while (playAgain.firstChild) {
     playAgain.removeChild(playAgain.firstChild);
   }
 
+  // build new playAgain screen
   playAgain.style.display = "";
   playAgain.style.visibility = "visible";
   youWonh1 = document.createElement("h1");
@@ -110,7 +115,7 @@ function checkMatch(){
     flippedCards[0].classList.add('matched');
     flippedCards[1].classList.add('matched');
     let matched = document.querySelectorAll('.matched');
-    if (matched.length == 2){
+    if (matched.length == 18){
       console.log("You won!");
       youWin();
     }
@@ -123,13 +128,12 @@ function checkMatch(){
     flippedCards[1].classList.remove('flipped');
     takeTurn();
   }
-
 }
 
 function flipCard() {
   let flippedCards = document.querySelectorAll('.flipped:not(.matched)');
 
-  // only 2 flipped cards at a time
+  // only allow 2 flipped cards (excluding matches) at a time
   if (flippedCards.length < 1){
     this.classList.add('flipped');
   }
@@ -162,6 +166,7 @@ function newGame(){
   while (header.firstChild) {
     header.removeChild(header.firstChild);
   }
+  shuffle(cards);
   createGameBoard();
   takeTurn();
 }
