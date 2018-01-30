@@ -78,17 +78,12 @@ function createGameBoard(){
 
 function checkMatch(){
   let flippedCards = document.querySelectorAll('.flipped:not(.matched)');
-  console.log(flippedCards);
   image1 = flippedCards[0].children[0].attributes[2].value;
   image2 = flippedCards[1].children[0].attributes[2].value;
-  console.log("image1:"+image1);
-  console.log("image2:"+image2);
   if (image1 === image2){
-    console.log("they match!");
     flippedCards[0].classList.add('matched');
     flippedCards[1].classList.add('matched');
     let matched = document.querySelectorAll('.matched');
-    console.log("matched:"+matched.length);
     if (matched.length == 18){
       console.log("You won!");
     }
@@ -97,7 +92,6 @@ function checkMatch(){
     }
   }
   else {
-    console.log("they don't match.");
     flippedCards[0].classList.remove('flipped');
     flippedCards[1].classList.remove('flipped');
     takeTurn();
@@ -146,7 +140,7 @@ function countTimer() {
   var seconds = totalSeconds - (hour*3600 + minute*60);
   var formattedSeconds = ("0" + seconds).slice(-2);
   timer = document.getElementById("timer");
-  
+
   timer.innerHTML = "Time: " + formattedMinutes + ":" + formattedSeconds;
 }
 
